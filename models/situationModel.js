@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 
 const situationSchema = new mongoose.Schema(
     {
+        id_Situation:{
+            type: mongoose.Schema.Types.ObjectId,
+        },
         name: {
             type: String,
             required: true
@@ -10,9 +13,12 @@ const situationSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        choice: {
+        heroChoice: {
             type: String,
-            enum: [],
+            required: true
+        },
+        villainChoice: {
+            type: String,
             required: true
         },
         score: {
