@@ -11,8 +11,13 @@ require('dotenv').config()
 require('./config/db')
 
 // Import des routes
+const authRoutes = require('./routes/authRoutes')
+
 
 // Config
+const corsOption = {
+    origin: 'http://localhost:3000'
+}
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 100,
@@ -26,10 +31,11 @@ app.use(
         crossOriginResourcePolicy: { policy: "cross-origin"}
     })
 )
-app.use(cors())
+app.use(cors(corsOption))
 app.use(limiter)
 
 // Montage des routes
+app.use('/api/v1/auth', authRoutes)
 
 //       URL
 app.get('/', (req, res) =>{
