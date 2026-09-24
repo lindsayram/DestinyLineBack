@@ -12,6 +12,7 @@ require('./config/db')
 
 // Import des routes
 const authRoutes = require('./routes/authRoutes')
+const situationRoutes = require('./routes/situationRoutes')
 
 
 // Config
@@ -36,6 +37,7 @@ app.use(limiter)
 
 // Montage des routes
 app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1/situation', situationRoutes)
 
 //       URL
 app.get('/', (req, res) =>{
