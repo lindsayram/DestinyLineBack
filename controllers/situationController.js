@@ -44,15 +44,19 @@ exports.updateSituation = async (req, res) => {
         // }
 
         // Datas recovery
-        const {title, description, heroChoice, villainChoice} = req.body
+        const {title, description, image, heroChoice, villainChoice} = req.body
 
         // Values allocation
         if(title != null){
             situation.title = title
         }
-        console.log(situation.title)
+        
         if(description != null){
             situation.description = description
+        }
+
+        if(image != null){
+            situation.image = image
         }
 
         if(heroChoice != null){
