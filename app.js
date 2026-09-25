@@ -17,7 +17,7 @@ const situationRoutes = require('./routes/situationRoutes')
 
 // Config
 const corsOption = {
-    origin: ['http://localhost:5173', 'http://localhost:4173']
+    origin: ['http://localhost:5173', 'http://localhost:4173', 'http://localhost:3000']
 }
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,

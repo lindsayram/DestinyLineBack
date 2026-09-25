@@ -17,6 +17,7 @@ exports.getSituation = async (req, res) => {
     }    
 }
 
+// deletion situation
 exports.deleteSituation = async (req, res) => {
     try {
         const situation = await Situation.findById(req.params.idSituation)
@@ -30,6 +31,7 @@ exports.deleteSituation = async (req, res) => {
     }    
 }
 
+// Update situation
 exports.updateSituation = async (req, res) => {
     try {
         // Situation exists?
@@ -77,4 +79,6 @@ exports.updateSituation = async (req, res) => {
         res.status(500).json({message : "Erreur serveur durant l'update", error: err.message})
     }    
 }
+
+// 
 

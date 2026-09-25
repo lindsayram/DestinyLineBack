@@ -1,24 +1,26 @@
 const sharp = require('sharp')
 const path = require('path')
 const fs = require('fs/promises')
-const Upload = require('../controllers/situationController')
+const Situation = require('../models/situationModel')
+
 
 
 exports.updateSituationImage = async (req, res) => {
     try {
 
-        const { id } = req.params
+        const { idSituation } = req.params
 
         if (!req.file) {
-            return res.status(400).json({message: 'Image not found'})}
-
-        // On récupère le parc
-        const result = await Upload.getSituation(id)
-
-        if (result === 0) {
-            return res.status(404).json({message: 'Situation not found'})
+            return res.status(400).json({message: 'Image not found'})
         }
 
+        // On récupère la situation
+        const situation = await Situation.findById(idSituation)
+        
+        if (!situation) {
+            return res.status(404).json({message: 'Situation not found'})
+        }
+        
         // const park = result.rows[0]
 
         // dossier upload
@@ -33,7 +35,7 @@ exports.updateSituationImage = async (req, res) => {
         })
 
         // Noms des nouvelles images
-        const safeId = id.replace(/[^a-zA-Z0-9-_]/g, '')
+        const safeId = idSituation.replace(/[^a-zA-Z0-9-_]/g, '')
 
         const timestamp = Date.now()
 
@@ -59,8 +61,10 @@ exports.updateSituationImage = async (req, res) => {
         const backgroundImageUrl = `/upload/situation/${backgroundFilename}`
 
         // mise à jour BDD
-        const updatedSituation = await Upload.updateSituation( backgroundImageUrl, id)
-
+        // const updatedSituation = await Situation.updateSituation( backgroundImageUrl, idSituation)
+        situation.image = backgroundImageUrl
+        await situation.save()
+        
         // 8. Suppression des anciennes images
         const oldImages = [
             situation.image
@@ -85,7 +89,7 @@ exports.updateSituationImage = async (req, res) => {
             }
         }
 
-        return res.status(200).json({message: 'Situation image updated', situation: updatedSituation})
+        return res.status(200).json({message: 'Situation image updated', situation})
 
     } catch (err) {
         console.error('ERREUR UPLOAD :', err)

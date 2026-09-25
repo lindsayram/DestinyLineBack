@@ -3,7 +3,7 @@ const router = express.Router()
 const { getSituation, deleteSituation, updateSituation } = require('../controllers/situationController')
 const authMiddleware = require('../middlewares/authMiddleware')
 const upload = require('../middlewares/uploadMiddleware')
-const { updateSituationImage } = require('../services/situationService')
+const { updateSituationImage } = require('../controllers/uploadController')
 
 router.get('/:idSituation', authMiddleware, getSituation)
 router.delete('/:idSituation', authMiddleware, deleteSituation)
