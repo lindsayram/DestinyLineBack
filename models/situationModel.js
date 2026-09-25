@@ -5,7 +5,7 @@ const situationSchema = new mongoose.Schema(
         id_Situation:{
             type: mongoose.Schema.Types.ObjectId,
         },
-        name: {
+        title: {
             type: String,
             required: true
         },
@@ -14,17 +14,12 @@ const situationSchema = new mongoose.Schema(
             required: true
         },
         heroChoice: {
-            type: String,
+            type: Object,
             required: true
         },
         villainChoice: {
-            type: String,
+            type: Object,
             required: true
-        },
-        score: {
-            type: Number,
-            required: true,
-            min: 0
         }
     },
     {

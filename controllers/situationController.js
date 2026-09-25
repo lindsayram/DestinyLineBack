@@ -32,7 +32,43 @@ exports.deleteSituation = async (req, res) => {
 
 exports.updateSituation = async (req, res) => {
     try {
-        
+        // Situation exists?
+        const situation = await Situation.findById(req.params.idSituation)
+        if(situation == null)
+            return res.status(404).json({message: "Situation non trouvé"})
+
+        // Verify role
+        // const userRole = req.user.role
+        // if(userRole != admin){
+        //     return res.status(401).json({message : "Vous n'êtes pas autorisé"})
+        // }
+
+        // Datas recovery
+        const {title, description, heroChoice, villainChoice} = req.body
+
+        // Values allocation
+        if(title != null){
+            situation.title = title
+        }
+        console.log(situation.title)
+        if(description != null){
+            situation.description = description
+        }
+
+        if(heroChoice != null){
+            situation.heroChoice = heroChoice
+        }
+
+        if(villainChoice != null){
+            situation.villainChoice = villainChoice
+        }
+
+        // Response
+        const newSituation = await situation.save()
+        res.status(200).json({
+            message : 'Vous avez modifié votre situation',
+            newSituation
+        }) 
     } catch (err) {
         res.status(500).json({message : "Erreur serveur durant l'update", error: err.message})
     }    

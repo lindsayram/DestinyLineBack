@@ -5,6 +5,6 @@ const authMiddleware = require('../middlewares/authMiddleware')
 
 router.get('/:idSituation', authMiddleware, getSituation)
 router.delete('/:idSituation', authMiddleware, deleteSituation)
-router.patch('/:idSituation', authMiddleware, updateSituation)
+router.put('/:idSituation', authMiddleware, updateSituation)
 
 module.exports = router
